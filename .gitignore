@@ -2,3 +2,6 @@ NOTES.md
 linear_regression/target
 gradient_descent/target
 classification_introduction/target
+multiclass/target
+/classification_matrix_class
+multiclass/src/matrix.rs

@@ -1,6 +1,6 @@
 use ndarray::{arr1, arr2, Array1, Array2, Zip};
 
-const ENOCHS: i64 = 400;
+const EPOCHS: i64 = 1;
 const LEARNING_RATE: f64 = 0.75;
 
 fn activate(x: f64) -> f64{
@@ -25,18 +25,19 @@ fn main() {
 
     let outputs: Array1<f64> = arr1(&[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]); // 0 keep, 1 sell
     
-    for e in 0..ENOCHS {
+    for _ in 0..EPOCHS {
+
         let pred: Array1<f64> = inputs.dot(&weights) + bias;
+        println!("{}", pred);
         let act: Array1<f64> = pred.iter().map(|x| activate(*x)).collect(); // Activate predictions in sigmoid function 
         let mut cost_array = Array1::zeros(act.shape()[0]);
-        
+        println!("{}", act);
         Zip::from(&mut cost_array)
             .and(&act)
             .and(&outputs)
             .for_each(|c: &mut f64, &a, &o| *c += log_loss(&a, &o)); // cost now uses log losses rather than mean square error 
         
         let cost: f64 = cost_array.iter().sum::<f64>() / act.shape()[0] as f64;
-        println!("Enoch: {} Cost {:.2}", e, cost);
 
         let error_delta: Array1<f64> = &act - &outputs;
         let weight_delta: Array1<f64> = inputs.t().dot(&error_delta) / error_delta.shape()[0] as f64;
@@ -47,7 +48,7 @@ fn main() {
     
     let test_inputs: Array2<f64> = arr2(&[
         [0.16, 0.1391], [0.56, 0.3046], [0.76, 0.8013], [0.96, 0.3046], [0.16, 0.7185]
-    ]);
+]);
 
     let test_pred: Array1<f64> = test_inputs.dot(&weights) + bias;
     let test_act: Array1<f64> = test_pred.iter().map(|x| activate(*x)).collect();
