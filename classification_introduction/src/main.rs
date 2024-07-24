@@ -37,7 +37,7 @@ fn main() {
             .and(&outputs)
             .for_each(|c: &mut f64, &a, &o| *c += log_loss(&a, &o)); // cost now uses log losses rather than mean square error 
         
-        let cost: f64 = cost_array.iter().sum::<f64>() / act.shape()[0] as f64;
+        let _cost: f64 = cost_array.iter().sum::<f64>() / act.shape()[0] as f64;
 
         let error_delta: Array1<f64> = &act - &outputs;
         let weight_delta: Array1<f64> = inputs.t().dot(&error_delta) / error_delta.shape()[0] as f64;
