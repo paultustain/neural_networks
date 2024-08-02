@@ -6,7 +6,7 @@ use std::f64::consts::E;
 // use num_traits::Float;
 
 
-const EPOCHS: i64 = 5000;
+const EPOCHS: i64 = 7500;
 const LEARNING_RATE: f64 = 0.4;
 const PURPLE: [f64; 3] = [1., 0., 0.];
 const ORANGE: [f64; 3] = [0., 1., 0.];
