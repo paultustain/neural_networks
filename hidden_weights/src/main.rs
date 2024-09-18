@@ -6,8 +6,8 @@ use std::f64::consts::E;
 // use num_traits::Float;
 
 
-const EPOCHS: i64 = 7500;
-const LEARNING_RATE: f64 = 0.4;
+const EPOCHS: i64 = 10000;
+const LEARNING_RATE: f64 = 0.6;
 const PURPLE: [f64; 3] = [1., 0., 0.];
 const ORANGE: [f64; 3] = [0., 1., 0.];
 const GREEN: [f64; 3] = [0., 0., 1.];
@@ -25,6 +25,7 @@ fn softmax(predictions: &mut Array2<f64>) -> Array2<f64> {
     let mut act: Array2<f64> = Array2::zeros((predictions.shape()[0], predictions.shape()[1]));
         
     for mut row in predictions.axis_iter_mut(Axis(0)) {
+        println!("{:#?}", row);
         let max_row = row.max().unwrap();
         row -= *max_row;
     }
